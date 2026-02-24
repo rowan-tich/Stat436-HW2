@@ -10,13 +10,71 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(shiny)
 
+data <- read_csv("https://raw.githubusercontent.com/rowan-tich/Stat436-HW2/refs/heads/main/genz_mental_wellness_synthetic_dataset.csv")
 ```
 
 ## Homework 2
 
 ```{r}
-import 
+ui <- fluidPage(
+  titlePanel("Dynamic X and Y Columns in Shiny"),
+  
+  sidebarLayout(
+    sidebarPanel(
+      #Select input for x-axis
+      selectInput(
+        inputId = "x_var",
+        label = "Select X-axis variable:",
+        choices = names(data),
+        selected = names(data)[1]
+      ),
+      #Select input for y-axis
+      selectInput(
+        inputId = "y_var",
+        label = "Select Y-axis variable:",
+        choices = names(data),
+        selected = names(data)[2]
+      ),
+      sliderInput("alpha_var", "Alpha", min = 0, max = 1, value = 0.2),
+      
+      checkboxInput(
+        inputId = "show_trend", 
+        label = "Show Trend Line", 
+        value = FALSE
+      )
+    ),
+
+    #Generate Plot
+    mainPanel(
+      plotOutput("scatter_plot")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  #Define the plot
+  output$scatter_plot <- renderPlot({
+    
+    p <- ggplot(data, aes(x = .data[[input$x_var]], y = .data[[input$y_var]])) + 
+      geom_point(alpha = input$alpha_var) +
+      labs(x = input$x_var, y = input$y_var)
+    
+    #Add smooth layer if show_trend input is true
+    if (input$show_trend) {
+      p <- p + geom_smooth(method = "lm", col = "red")
+    }
+    
+    p
+    
+  })
+}
+
+shinyApp(ui, server)
 ```
+
+
+
 
 
 
