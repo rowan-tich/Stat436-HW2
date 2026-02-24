@@ -80,7 +80,7 @@ I started with the input selectors for the x and y axis. It took a little while 
 
 This could easily be modified to include a dropdown to show other graphs, whether or not you want it faceted and according to what, and you could even add a text box that decides what data set to use to make it a "ez graph" application. I also would like to clean it up a bit more on the text department. It feels sorta like desmos except not just for mathematical graphs and more for datasets.
 
-The script can be found here: https://github.com/rowan-tich/Stat436-HW2/blob/main/HW2.Rmd and 
+The script can be found here: https://github.com/rowan-tich/Stat436-HW2/blob/main/HW2.Rmd and https://uwmadison.box.com/s/r78oseme0zamlsjpk3fiwl3csbqvq2u3
 
 
 
