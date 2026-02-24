@@ -17,7 +17,7 @@ data <- read_csv("https://raw.githubusercontent.com/rowan-tich/Stat436-HW2/refs/
 
 ```{r}
 ui <- fluidPage(
-  titlePanel("Dynamic X and Y Columns in Shiny"),
+  titlePanel("Dynamic Scatter Plot of Mental Health Wellness of Gen Z"),
   
   sidebarLayout(
     sidebarPanel(
@@ -26,14 +26,14 @@ ui <- fluidPage(
         inputId = "x_var",
         label = "Select X-axis variable:",
         choices = names(data),
-        selected = names(data)[1]
+        selected = names(data)[7]
       ),
       #Select input for y-axis
       selectInput(
         inputId = "y_var",
         label = "Select Y-axis variable:",
         choices = names(data),
-        selected = names(data)[2]
+        selected = names(data)[16]
       ),
       sliderInput("alpha_var", "Alpha", min = 0, max = 1, value = 0.2),
       
@@ -74,6 +74,13 @@ shinyApp(ui, server)
 ```
 
 
+I found this dataset on Kraggle, it was one of the trending data sets and I found it interesting enough to use for this homework. I was trying to find something interesting enough to represent for the app and I couldn't decide so I decided to make it interactive in a way that enabled you to decide what was being shown on the graph via x and y axis input selectors.
+
+I started with the input selectors for the x and y axis. It took a little while and lots of Stack Overflow for me to figure out that I had to make then strings, then I was finally able to get them into the ggplot in the server section, as it had to be able to be entirely reactive. Then I added a slider for the alpha, that was not nearly as difficult. Then when I added the trend line and needed it to be able to be disabled and enabled I had first experimented with another alpha modifier but had decided that it was too complicated to set up a button to output 1 and 0 instead of true and false and then get it to work in the server. It also felt sorta of cheap and a cop out instead of making a "true" disable/enable button. So I used the stuff we learned from the faceting part of the lectures to figure out how to get it to work. It's not true faceting and rather just adds it or not depending on the button. Along with this, I also had to figure out a new way to handle the x and y inputs to actual values, that once again had to be looked up to figure it out.
+
+This could easily be modified to include a dropdown to show other graphs, whether or not you want it faceted and according to what, and you could even add a text box that decides what data set to use to make it a "ez graph" application. I also would like to clean it up a bit more on the text department. It feels sorta like desmos except not just for mathematical graphs and more for datasets.
+
+The script can be found here: https://github.com/rowan-tich/Stat436-HW2/blob/main/HW2.Rmd and 
 
 
 
